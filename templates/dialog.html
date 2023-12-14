@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Диалог</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        body {
+            background-color: #24252a;
+            color: black;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; 
+        }
+    </style>
+</head>
+<style>
+    .collection-item {
+        position: relative;
+    }
+
+    .timestamp {
+        font-size:20px;
+        color: blue;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+</style>
+{% include 'header.html' %}
+<body>
+    <div class="container">
+        <h1 class="white-text">Диалог с {{ partner.username }}</h1>
+        <ul class="collection">
+            {% for message in messages %}
+                <li class="collection-item">
+                    <img src="{{ url_for('uploaded_file', filename=message.sender.avatar_path) }}" alt="Avatar" class="avatar">
+                    <span class="blue-text text-darken-2">{{ message.sender.username }}:</span> {{ message.content }}
+                    
+                    {% if message.file_path %}
+                        <div class="file-info">
+                            {% if message.file_path.endswith(('.jpg', '.jpeg', '.png', '.gif')) %}
+                                <img style='width:150px;margin-left:7%;' src="{{ url_for('uploaded_file', filename=message.file_path) }}" alt="Image">
+                            {% else %}
+                                <p><a href="{{ url_for('uploaded_file', filename=message.file_path) }}">{{ extract_filename(message.file_path) }}</a></p>  
+                            {% endif %}
+                        </div>
+                    {% endif %}
+        
+                    <div class="timestamp">
+                        <small>{{ message.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <form method="POST" action="{{ url_for('dialog', partner_id=partner.id) }}" enctype="multipart/form-data">
+            <div class="input-field">
+                <label for="message_content" class="white-text">Сообщение:</label>
+                <input type="text" name="message_content" class="white-text" required>
+                <button style='width:50px;margin-top:-4%; margin-left:95%;' class="btn waves-effect waves-light" type="submit"><i class="material-icons left">send</i></button>
+            </div>
+            <div class="file-field input-field">
+                <div style='width:50px;' class="btn">
+                    <i class="material-icons left">attach_file</i>
+                    <input type="file" name="message_file">
+                </div>
+                <div class="file-path-wrapper">
+                    <input style='width:250px;' class="file-path validate" type="text">
+                </div>
+            </div>
+        </form>
+        
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

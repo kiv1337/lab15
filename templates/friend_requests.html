@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявки в друзья</title>
+</head>
+<style>
+    body {
+        background-color: #24252a;
+        color: #ffffff;
+        height: 100vh;
+    }
+</style>
+{% include 'header.html' %}
+<body>
+    <h1>Заявки в друзья</h1>
+    <ul>
+        {% for friend_request in friend_requests %}
+            <li>{{ User.query.get(friend_request.user_id).username }} хочет быть твоим другом. 
+                <a href="{{ url_for('accept_friend_request', request_id=friend_request.id) }}">принять</a> /
+                <a href="{{ url_for('reject_friend_request', request_id=friend_request.id) }}">отклонить</a>
+            </li>
+        {% endfor %}
+    </ul>    
+</body>
+</html>

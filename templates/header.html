@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a style="margin-right:5%;" class="brand-logo right" href="{{ url_for('register') }}">Регистрация</a></li>
+        <li><a class="brand-logo right" href="{{ url_for('login') }}">Вход</a></li>
+        <li><a href="{{ url_for('user') }}">Профиль</a></li>
+        <li><a href="{{ url_for('dialogs') }}">Диалоги</a></li>
+        <li><a href="{{ url_for('friends') }}">Список друзей</a></li>
+        <li><a href="{{ url_for('friend_requests') }}">Заявки</a></li>
+    </ul>
+</div>
+</nav>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

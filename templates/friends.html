@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Friends</title>
+</head>
+<style>
+    body {
+        background-color: #24252a;
+        color: #ffffff;
+        height: 100vh;
+    }
+</style>
+{% include 'header.html' %}
+<body>
+    <h1>Друзья</h1>
+    <p>Ваши друзья:</p>
+    
+    <ul>
+        {% for friend in current_user.friends_list %}
+            <li>
+                {{ friend.username }}
+                <form method="POST" action="{{ url_for('remove_friend', friend_id=friend.id) }}">
+                    <input type="hidden" name="friend_id" value="{{ friend.id }}">
+                    <button class="waves-effect waves-light btn" type="submit">Удалить</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>  
+    <form method="POST" action="{{ url_for('friends') }}">
+        <label for="friend_username">Добавить друга:</label>
+        <input type="text" name="friend_username" required>
+        <button class="btn-floating btn-large waves-effect waves-light red" type="submit"><i class="material-icons">add</i>Добавить</button>
+    </form>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</html>

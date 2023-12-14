@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Диалоги</title>
+</head>
+<style>
+    body {
+        background-color: #24252a;
+        color: #ffffff;
+        height: 100vh;
+    }
+</style>
+{% include 'header.html' %}
+<body>
+    <h1>Диалоги</h1>
+    <ul>
+        {% for partner in dialog_partners %}
+            <li><a href="{{ url_for('dialog', partner_id=partner.id) }}">{{ partner.username }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

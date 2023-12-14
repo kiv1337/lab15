@@ -1,0 +1,96 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        body {
+            background-color: #24252a;
+            color: #ffffff;
+            height: 100vh;
+        }
+
+
+        h1 {
+            color: #29b6f6;
+            margin-top: 50px;
+        }
+
+        p {
+            color: #29b6f6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #29b6f6;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #039be5;
+        }
+
+        img.avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+            border: 4px solid #29b6f6;
+        }
+
+
+    </style>
+</head>
+{% include 'header.html' %}
+<body>
+    <div style='margin-left: 40%;' class="container">
+            <div class="col s12">
+                <h1>Профиль</h1>
+                <p style="font-size: 40px;">{{ user.username }}</p>
+            </div>
+
+        {% if user.avatar_path %}
+        <div class="row">
+            <div class="col s12">
+                <img class="avatar" src="{{ url_for('uploaded_file', filename=user.avatar_path) }}" alt="Avatar">
+            </div>
+        </div>
+        {% else %}
+        <p>Аватар недоступен</p>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('change_avatar') }}" enctype="multipart/form-data">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Изменить аватар</span>
+                    <input type="file" name="avatar">
+                </div>
+                <div class="file-path-wrapper">
+                    <input style="width:100px;" class="file-path validate" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </form>
+
+        <form method="POST" action="{{ url_for('logout') }}">
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn" type="submit">Выйти</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
